@@ -112,7 +112,6 @@ export default function Todo() {
         <title>Web5 To Do App</title>
       </Head>
       <h1>To Do</h1>
-      <p>A reality check for folks who think they can do it all in a short amount of time</p>
       {loading ? (
         <p>Loading...</p>
       ) : (
