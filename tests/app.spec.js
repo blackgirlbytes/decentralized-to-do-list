@@ -32,3 +32,13 @@ test('it should load the homepage', async ({ page }) => {
 // });
 
 
+// test('it should delete a task', async ({ page }) => {
+//   await page.goto('http://localhost:3000');
+//   const eyes = new Eyes();
+//   await eyes.open(page, 'To', 'Do');
+
+//   await page.click('button[name="deleteTask"]');
+//   await eyes.check('Delete Task', Target.window().fully());
+
+//   await eyes.close();
+// });
