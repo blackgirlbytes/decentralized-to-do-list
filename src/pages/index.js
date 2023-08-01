@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Web5 } from '@tbd54566975/web5';
-
+import Head from 'next/head';
 export default function Todo() {
   const [web5Instance, setWeb5Instance] = useState(null);
   const [aliceDid, setAliceDid] = useState(null);
@@ -78,7 +78,7 @@ export default function Todo() {
 
   async function deleteTask(id) {
     if (web5Instance && aliceDid) {
-      const record = await web5Instance.dwn.records.delete({
+      await web5Instance.dwn.records.delete({
         from: aliceDid,
         message: {
           recordId: id,
@@ -97,7 +97,7 @@ export default function Todo() {
         },
       });
 
-      const updateResult = await record.update({ data: editTaskValue });
+      await record.update({ data: editTaskValue });
       // Send the updated record to the DWN.
       await record.send(aliceDid);
       setTasks((prevTasks) => prevTasks.map((task) => (task.id === id ? { ...task, text: editTaskValue } : task)));
@@ -108,7 +108,10 @@ export default function Todo() {
 
   return (
     <div>
-      <h1>Time Blind</h1>
+      <Head>
+        <title>Web5 To Do App</title>
+      </Head>
+      <h1>To Do</h1>
       <p>A reality check for folks who think they can do it all in a short amount of time</p>
       {loading ? (
         <p>Loading...</p>
@@ -116,8 +119,8 @@ export default function Todo() {
         <>
           <ul>
             <form className="add-task-container" onSubmit={addTask}>
-              <input type="text" value={newTask} onChange={(e) => setNewTask(e.target.value)} placeholder="New task" />
-              <button type="submit">Add task</button>
+              <input name="newTask" type="text" value={newTask} onChange={(e) => setNewTask(e.target.value)} placeholder="New task" />
+              <button name="addTask" type="submit">Add task</button>
             </form>
             {tasks.map((task, index) => (
               <li key={index} className="main-task">
@@ -138,7 +141,7 @@ export default function Todo() {
                     </div>
                     <div className="action-buttons">
                       <button className="action-button" onClick={() => { setEditTaskId(task.id); setEditTaskValue(task.text); }}>Edit</button>
-                      <button className="action-button" onClick={() => deleteTask(task.id)}>Delete</button>
+                      <button name="deleteTask" className="action-button" onClick={() => deleteTask(task.id)}>Delete</button>
                     </div>
                   </div>
                 )}
