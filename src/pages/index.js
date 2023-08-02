@@ -51,7 +51,7 @@ export default function Todo() {
 
   async function addTask(event) {
     event.preventDefault(); // Prevent form from submitting and refreshing the page
-    if (web5Instance && aliceDid) {
+    if (web5Instance && aliceDid && newTask.trim() !== '') {
       const taskData = {
         '@context': 'https://schema.org/',
         '@type': 'Action',
