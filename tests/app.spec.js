@@ -67,6 +67,7 @@ test.beforeAll(async () => {
 });
 
 test.beforeEach(async ({ page }) => {
+    console.log(`Running test: "${test.info().title}"`);
     // Create a new Applitools Eyes object for each test.
     eyes = new Eyes(Runner);
 
