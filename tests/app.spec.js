@@ -31,7 +31,7 @@ test.beforeAll(async () => {
 
     console.log(`USER: ${process.env.USER}`);
     console.log(`USER_NAME (from secrets): ${process.env.USER_NAME}`);
-    
+
     if (USE_ULTRAFAST_GRID) {
         // Create the runner for the Ultrafast Grid.
         // Concurrency refers to the number of visual checkpoints Applitools will perform in parallel.
@@ -92,6 +92,19 @@ test('it should load the homepage', async ({ page }) => {
     await page.goto('http://localhost:3000');
     await eyes.check("homepage", Target.window().fully());
     await eyes.check("add button", Target.region('text=Add').strict());
+});
+
+test('it should add a task', async ({ page }) => {
+    await page.goto('http://localhost:3000');
+    await page.fill('input[placeholder="New task"]', 'Test task');
+    await page.click('button[type="submit"]');
+    await eyes.check('Add Task', Target.window().fully());
+});
+
+test('it should delete a task', async ({ page }) => {
+    await page.goto('http://localhost:3000');
+    await page.click('button[name="deleteTask"]');
+    await eyes.check('Delete Task', Target.window().fully());
 });
 
 test.afterEach(async () => {
