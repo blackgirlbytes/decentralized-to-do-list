@@ -67,15 +67,18 @@ test.beforeAll(async () => {
         Config.addDeviceEmulation(DeviceName.iPhone_11, ScreenOrientation.PORTRAIT);
         Config.addDeviceEmulation(DeviceName.Nexus_10, ScreenOrientation.LANDSCAPE);
     }
+    console.log('beforeAll done');
 });
 
 test.beforeEach(async ({ page }) => {
+    console.log(`Running test: "${test.info().title}"`);
     // Create a new Applitools Eyes object for each test.
     eyes = new Eyes(Runner);
 
     // Attach the eyes to the browser.
     eyes.setConfiguration(Config);
     await eyes.open(page, 'ToDo', test.info().title); // Pass the test name as a string
+    console.log('beforeEach done');
 });
 
 // Existing tests
