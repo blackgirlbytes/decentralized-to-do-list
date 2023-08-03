@@ -28,6 +28,10 @@ export let Runner;
 export let eyes;
 
 test.beforeAll(async () => {
+
+    console.log(`USER: ${process.env.USER}`);
+    console.log(`USER_NAME (from secrets): ${process.env.USER_NAME}`);
+    
     if (USE_ULTRAFAST_GRID) {
         // Create the runner for the Ultrafast Grid.
         // Concurrency refers to the number of visual checkpoints Applitools will perform in parallel.
