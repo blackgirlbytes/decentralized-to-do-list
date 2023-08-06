@@ -22,6 +22,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Running in GitHub Codespaces
 Click the button below, and the project will build and run in a GitHub Codespaces
+
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/blackgirlbytes/decentralized-to-do-list?devcontainer_path=/.devcontainer/basics/devcontainer.json)
 
 ## Technologies Used
