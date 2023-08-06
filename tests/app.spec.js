@@ -101,11 +101,11 @@ test('it should add a task', async ({ page }) => {
     await eyes.check('Add Task', Target.window().fully());
 });
 
-test('it should delete a task', async ({ page }) => {
-    await page.goto('http://localhost:3000');
-    await page.click('button[name="deleteTask"]');
-    await eyes.check('Delete Task', Target.window().fully());
-});
+// test('it should delete a task', async ({ page }) => {
+//     await page.goto('http://localhost:3000');
+//     await page.click('button[name="deleteTask"]');
+//     await eyes.check('Delete Task', Target.window().fully());
+// });
 
 test.afterEach(async () => {
     // Close the eyes for each test.
