@@ -11,8 +11,11 @@ A to do list built with decentralized technologies
 
 
 ## Running locally
-
-First, run the development server:
+### Install dependencies 
+```bash
+npm install
+```
+### Run the development server
 
 ```bash
 npm run dev
