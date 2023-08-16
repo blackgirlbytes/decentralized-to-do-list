@@ -118,9 +118,10 @@ export default function Todo() {
         <>
           <ul>
             <form className="add-task-container" onSubmit={addTask}>
-              <input name="newTask" type="text" value={newTask} onChange={(e) => setNewTask(e.target.value)} placeholder="New task" />
-              <button name="addTask" type="submit">Add task</button>
+              <input id="newTask" name="newTask" type="text" value={newTask} onChange={(e) => setNewTask(e.target.value)} placeholder="New task" />
+              <button id="addTask" name="addTask" type="submit">Add task</button>
             </form>
+            <div id={"addedTasks"}>
             {tasks.map((task, index) => (
               <li key={index} className="main-task">
                 {editTaskId === task.id ? (
@@ -136,7 +137,7 @@ export default function Todo() {
                 ) : (
                   <div className="tasks-container">
                     <div className="main-task-container">
-                      <label>{task.text}</label>
+                      <label id={"item-"+index}>{task.text}</label>
                     </div>
                     <div className="action-buttons">
                       <button className="action-button" onClick={() => { setEditTaskId(task.id); setEditTaskValue(task.text); }}>Edit</button>
@@ -146,6 +147,7 @@ export default function Todo() {
                 )}
               </li>
             ))}
+            </div>
           </ul>
         </>
       )}

@@ -1,0 +1,95 @@
+import java.text.SimpleDateFormat
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'maven-publish'
+apply plugin: 'eclipse'
+
+group 'com.anandbagmar'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    ext {
+        gradleVersionProperty = '8.2.1'
+        testNGVersion = '7.8.0'
+        jsonSimpleVersion = '1.1.1'
+        applitoolsVersion = '5.64.2'
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    implementation 'org.testng:testng:' + testNGVersion
+    implementation 'com.applitools:eyes-selenium-java5:' + applitoolsVersion
+    implementation 'com.googlecode.json-simple:json-simple:' + jsonSimpleVersion
+}
+
+static def getCurrentDatestamp() {
+    Date today = new Date()
+    SimpleDateFormat df = new SimpleDateFormat("MM-dd-yyyy")
+    return df.format(today)
+}
+
+static def getCurrentTimestamp() {
+    Date today = new Date()
+    SimpleDateFormat df = new SimpleDateFormat("HH-mm-ss")
+    return df.format(today)
+}
+
+project.ext.logDir = "${rootDir}/reports/" + getCurrentDatestamp() + "/" + getCurrentTimestamp()
+
+test {
+    doFirst {
+        environment "APPLITOOLS_DONT_CLOSE_BATCHES", "true"
+    }
+    useTestNG() {
+        options {
+            parallel = 'methods'
+            threadCount = 2
+        }
+        reports.html.required = true
+        reports.html.outputLocation = file("${project.logDir}/html")
+
+        reports.junitXml.required = true
+        reports.junitXml.outputLocation = file("${project.logDir}/junit")
+        testLogging {
+            events "started", "passed", "skipped", "failed"
+            // show standard out and standard error of the test JVM(s) on the console
+            showStandardStreams = true
+            // show full exception trace
+            exceptionFormat = 'full'
+            showStackTraces = true
+            showCauses = true
+            showExceptions = true
+        }
+        println("Debug mode: " + System.getProperty('debug', 'false'))
+        // attach debugger
+        if (System.getProperty('debug', 'false') == 'true') {
+            println("In debug mode")
+            jvmArgs '-Xdebug', '-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,' +
+                    'address=*:5005'
+        }
+
+    }
+}
+
+clean.doFirst {
+    delete "${rootDir}/target"
+    delete "${rootDir}/bin"
+    delete "${rootDir}/build"
+    delete "${rootDir}/out"
+    println "Clean: Deleted bin, build, out, target and reports directories"
+}
+
+clean.doLast {
+    mkdir "${rootDir}/reports"
+    println "Created reports directory"
+}
+
+wrapper {
+    gradleVersion = project.gradleVersionProperty
+}

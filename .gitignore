@@ -38,3 +38,6 @@ next-env.d.ts
 /playwright/.cache/
 
 .idea
+.gradle
+reports
+target
