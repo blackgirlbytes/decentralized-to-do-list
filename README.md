@@ -33,3 +33,8 @@ Click the button below, and the project will build and run in a GitHub Codespace
 - Web5 SDK
 - Applitools
 - Playwright
+
+## Running e2e tests
+DISABLED=true ./gradlew test
+
+USE_UFG=true BROWSER=self_healing ./gradlew test
