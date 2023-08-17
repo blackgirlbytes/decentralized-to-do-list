@@ -43,6 +43,7 @@ export default function Todo() {
       // Filter out any null values from the tasks array.
       const validTasks = tasks.filter((task) => task !== null);
       setTasks(validTasks);
+      console.log('this is a test')
       setLoading(false);
     }
 
